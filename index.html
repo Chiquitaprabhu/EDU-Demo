@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <!--<p>Hello world! This is HTML5 Boilerplate.</p> -->
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+        <script type="application/javascript">
+            function submit_by_id()
+            {
+                var title= $("#movie_title").val();
+                var year=$("#year_of_release").val();
+                var director=$("#director_name").val();
+                var poster=$("#movie_poster_url").val();
+
+                var nameOfDataFile = "MovieDataJSON";
+
+                if(localStorage.getItem(nameOfDataFile) === null) {
+                    //data with the name does not exist yet
+
+                    var newlyMadeJSON_STRING = '{"movies": [{"title":"'+title+'","year":'+year+',"director":"'+director+'","poster":"'+poster+'"}]}';
+
+                    alert("\nFile does not exist yet\n"+
+                            newlyMadeJSON_STRING
+                    );
+
+                    localStorage.setItem(nameOfDataFile, newlyMadeJSON_STRING);
+
+
+                } else {
+                    // data with the same name already exists
+
+                    alert("\nFile exists already\n"+
+                        "title:"+title+
+                        "\nyear:"+year+
+                        "\ndirector:"+director+
+                        "\nposter:"+poster
+                    );
+
+                    var oldJSON_STRING = localStorage.getItem(nameOfDataFile);
+                    var oldJSON_JSONOBJECT = JSON.parse(oldJSON_STRING);
+
+                    oldJSON_JSONOBJECT["movies"].push({
+                        'title': title,
+                        'year': year,
+                        'director': director,
+                        'poster': poster
+                    });
+
+                    var newJSON = JSON.stringify(oldJSON_JSONOBJECT);
+
+                    localStorage.setItem(nameOfDataFile, newJSON);
+                }
+            }
+
+            function dump() {
+                var dump = localStorage.getItem('MovieDataJSON');
+                alert(dump);
+            }
+
+            function clearItem() {
+                //localStorage.removeItem('MovieDataJSON');
+                localStorage.removeItem('MovieDataJSON');
+            }
+
+            function checkExistenceLocalStorage() {
+                if(localStorage.getItem('MovieDataJSON') === null) {
+                    alert('MovieDataJSON does not exist in LocalStorage');
+                } else {
+                    alert('MovieDataJSON exists in LocalStorage');
+                }
+            }
+        </script>
+
+
+        <form action="#" id="form_id" method="post" padding="5">
+            Movie Title:<br>
+            <input type="text" id="movie_title" value="Aloha"><br>
+
+            Year of Release:<br>
+            <input type="number" min="1900" max="2017" id="year_of_release" value="2017"><br>
+
+            Director's name:<br>
+            <input type="text" id="director_name" value="Mr.X"><br>
+
+            Movie's Poster:<br>
+            <input type="url" name="murl" id="movie_poster_url" value="url"><br>
+
+            <input type="button" onclick="submit_by_id()" value="submit">
+         </form>
+
+        <input type="button" onclick="dump()" value="Dump LocalStorage">
+        <input type="button" onclick="clearItem()" value="Clear LocalStorage">
+        <input type="button" onclick="checkExistenceLocalStorage()" value="Check LocalStorage">
+    </body>
+</html>
