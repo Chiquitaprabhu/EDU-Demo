@@ -6,5 +6,5 @@ The HTML page has four text input fields for accepting the required data. The su
 
 The HTML interface also has three buttons for debugging:
 1. Dump LocalStorage : It dumps the contents of the localStorage onto an alert box.
-2. Clea LocalStorage : It clears the localStorage's element which stores the data related to this application.
+2. Clear LocalStorage : It clears the localStorage's element which stores the data related to this application.
 3. Check LocalStorage : It asserts whether the element ("MovieDataJSON") exists in LocalStorage through an alert.
